@@ -1,6 +1,6 @@
 import { https } from 'firebase-functions'
 import { Transaction, MetaTypeCreator } from 'firelord'
-import { List, Registration, User } from './shared'
+import { List, RegisterUserProps, User } from './shared'
 
 export type TransactionCallback <Props> = (
   props: Props,
@@ -8,7 +8,7 @@ export type TransactionCallback <Props> = (
   transaction: Transaction
 ) => Promise<unknown>
 export type CloudCallback <Props> = TransactionCallback<Props> | Array<TransactionCallback<Props>>
+export type RegistrationsMeta = MetaTypeCreator<RegisterUserProps, 'registrations'>
 
-export type ListsMeta = MetaTypeCreator<List, 'lists'>
 export type UsersMeta = MetaTypeCreator<User, 'users'>
-export type RegistrationsMeta = MetaTypeCreator<Registration, 'registrations'>
+export type ListsMeta = MetaTypeCreator<List, 'lists', string, UsersMeta>

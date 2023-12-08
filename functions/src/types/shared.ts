@@ -3,9 +3,10 @@ export interface User extends Record<string, unknown> {
   uid: string
 }
 
-export interface Registration extends Record<string, unknown> {
+export interface RegisterUserProps extends Record<string, unknown> {
   displayName: string
   email: string
+  password: string
 }
 
 export interface CreateListProps {
@@ -14,4 +15,5 @@ export interface CreateListProps {
 
 export interface List extends Record<string, unknown> {
   title: string
+  uid: string
 }

@@ -1,29 +1,20 @@
 'use client'
 
 import { Heading, Input } from '@chakra-ui/react'
-import { useAuth, useFunctions } from 'reactfire'
+import { useFunctions } from 'reactfire'
 import { AuthFormView } from './AuthFormView'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { useHttpsCallable } from 'react-firebase-hooks/functions'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export function RegisterView (): JSX.Element {
   const router = useRouter()
-  const auth = useAuth()
   const functions = useFunctions()
   const [
-    createAuthUser,
-    createdAuthUser,
-    createAuthUserLoading,
-    createAuthUserError
-  ] = useCreateUserWithEmailAndPassword(auth)
-  void createdAuthUser
-  const [
-    cloudCreateUser,
-    cloudCreateUserLoading,
-    cloudCreateUserError
-  ] = useHttpsCallable(functions, 'createUser')
+    cloudRegisterUser,
+    cloudRegisterUserLoading,
+    cloudRegisterUserError
+  ] = useHttpsCallable(functions, 'registerUser')
   const [displayName, setDisplayName] = useState('')
   function handleDisplayNameChange (event: React.ChangeEvent<HTMLInputElement>): void {
     setDisplayName(event.target.value)
@@ -31,18 +22,17 @@ export function RegisterView (): JSX.Element {
   async function authenticate ({ email, password }: { email: string, password: string }): Promise<void> {
     try {
       console.log('1')
-      await cloudCreateUser({ email, displayName })
-      console.log('2')
-      await createAuthUser(email, password)
-      console.log('3')
+      const result = await cloudRegisterUser({ email, displayName })
+      console.log('2', result)
+      if (result == null) return
       router.push('/login')
-      console.log('4')
+      console.log('3')
     } catch (error) {
       console.warn(error)
     }
   }
-  const error = createAuthUserError ?? cloudCreateUserError
-  const loading = createAuthUserLoading || cloudCreateUserLoading
+  const error = cloudRegisterUserError
+  const loading = cloudRegisterUserLoading
   return (
     <>
       <Heading size='lg'>Register</Heading>
