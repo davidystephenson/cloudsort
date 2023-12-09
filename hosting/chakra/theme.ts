@@ -1,8 +1,23 @@
-import { extendTheme } from '@chakra-ui/react'
+import { defineStyleConfig, extendTheme } from '@chakra-ui/react'
 
 const config = {
   initialColorMode: 'system',
   useSystemColorMode: true
 }
 
-export const chakraTheme = extendTheme({ config })
+const Button = defineStyleConfig({
+  defaultProps: {
+    size: 'sm'
+  }
+})
+
+const components = {
+  Button
+}
+
+const extension = {
+  components,
+  config
+}
+
+export const chakraTheme = extendTheme(extension)

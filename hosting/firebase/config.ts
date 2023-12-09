@@ -32,7 +32,7 @@ const persistence = inBrowser
   : inMemoryPersistence
 
 export const firebaseAuth = initializeAuth(firebaseApp, { persistence })
-export const firebaseFirestore = getFirestore(firebaseApp)
+export const firestore = getFirestore(firebaseApp)
 export const firebaseStorage = getStorage(firebaseApp)
 export const firebaseFunctions = getFunctions(firebaseApp)
 
@@ -42,7 +42,7 @@ if (firebaseConfig.emulate) {
   }
   const authHost = `http://${firebaseConfig.emulatorHost}:${firebaseConfig.authEmulatorPort}`
   connectAuthEmulator(firebaseAuth, authHost)
-  connectFirestoreEmulator(firebaseFirestore, firebaseConfig.emulatorHost, firebaseConfig.firestoreEmulatorPort)
+  connectFirestoreEmulator(firestore, firebaseConfig.emulatorHost, firebaseConfig.firestoreEmulatorPort)
   connectStorageEmulator(firebaseStorage, firebaseConfig.emulatorHost, firebaseConfig.storageEmulatorPort)
   connectFunctionsEmulator(firebaseFunctions, firebaseConfig.emulatorHost, firebaseConfig.functionsEmulatorPort)
 }

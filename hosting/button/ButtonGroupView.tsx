@@ -9,6 +9,7 @@ export function ButtonGroupView (props: ButtonProps): JSX.Element {
       <Button
         isLoading={button.loading}
         loadingText={button.loadingLabel}
+        size='sm'
         {...props}
         {...button.buttonProps}
       >

@@ -1,5 +1,5 @@
 import { registerUser } from './registerUser'
-// import { onCreateUser } from './onCreateUser'
+import { createList } from './createList'
 
 exports.registerUser = registerUser
-// exports.onCreateUser = onCreateUser
+exports.createList = createList

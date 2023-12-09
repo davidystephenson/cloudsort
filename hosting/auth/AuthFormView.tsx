@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@chakra-ui/react'
+import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
 import { ChangeEvent, FormEvent, ReactNode, useState } from 'react'
 import { ButtonView } from '../button/ButtonView'
 
@@ -21,6 +21,7 @@ export function AuthFormView ({
 }): JSX.Element {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   function handleSubmit (event: FormEvent<HTMLFormElement>): void {
     event.preventDefault()
     void authenticate({ email, password })
@@ -31,6 +32,11 @@ export function AuthFormView ({
   function handlePasswordChange (event: ChangeEvent<HTMLInputElement>): void {
     setPassword(event.target.value)
   }
+  function handleShowPasswordChange (): void {
+    setShowPassword(current => !current)
+  }
+  const passwordLabel = showPassword ? 'Hide' : 'Show'
+  const passwordInputType = showPassword ? 'text' : 'password'
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -40,13 +46,20 @@ export function AuthFormView ({
           value={email}
           onChange={handleEmailChange}
         />
-        <Input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete=''
-        />
+        <InputGroup>
+          <Input
+            type={passwordInputType}
+            placeholder='Password'
+            value={password}
+            onChange={handlePasswordChange}
+            autoComplete=''
+          />
+          <InputRightElement w='fit-content'>
+            <Button onClick={handleShowPasswordChange}>
+              {passwordLabel}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
         {children}
         <ButtonView
           buttonProps={{ type: 'submit' }}

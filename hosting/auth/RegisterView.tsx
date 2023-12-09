@@ -6,6 +6,7 @@ import { AuthFormView } from './AuthFormView'
 import { useHttpsCallable } from 'react-firebase-hooks/functions'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { RegisterUserProps } from '../types/shared'
 
 export function RegisterView (): JSX.Element {
   const router = useRouter()
@@ -14,7 +15,7 @@ export function RegisterView (): JSX.Element {
     cloudRegisterUser,
     cloudRegisterUserLoading,
     cloudRegisterUserError
-  ] = useHttpsCallable(functions, 'registerUser')
+  ] = useHttpsCallable<RegisterUserProps>(functions, 'registerUser')
   const [displayName, setDisplayName] = useState('')
   function handleDisplayNameChange (event: React.ChangeEvent<HTMLInputElement>): void {
     setDisplayName(event.target.value)
@@ -22,7 +23,7 @@ export function RegisterView (): JSX.Element {
   async function authenticate ({ email, password }: { email: string, password: string }): Promise<void> {
     try {
       console.log('1')
-      const result = await cloudRegisterUser({ email, displayName })
+      const result = await cloudRegisterUser({ email, displayName, password })
       console.log('2', result)
       if (result == null) return
       router.push('/login')

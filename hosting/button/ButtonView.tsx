@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext } from 'react'
-import { BUTTON_CONTEXT_VALUE_KEYS, ButtonContextValue } from '../types'
+import { BUTTON_CONTEXT_VALUE_KEYS, ButtonContextValue } from '../types/hosting'
 import { ButtonGroupView } from './ButtonGroupView'
 import { ButtonProps } from '@chakra-ui/react'
 

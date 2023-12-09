@@ -1,18 +1,23 @@
 import { createCloudFunction } from './createCloudFunction'
 import { CreateListProps } from './types/shared'
-import { guardCurrentUid } from './guardCurrentUid'
-import { listsFirelord } from './init'
+import { listsRef } from './init'
 import { https } from 'firebase-functions/v1'
+import { guardCurrentUser } from './guardCurrentUser'
 
 export const createList = createCloudFunction<CreateListProps>(async (props, context, transaction) => {
-  const uid = guardCurrentUid({ context })
-  const listRef = listsFirelord.doc(uid, props.title)
+  if (props.name == null) {
+    throw new https.HttpsError('invalid-argument', 'Name is required')
+  }
+  const { currentUid, currentUser } = await guardCurrentUser({ context, transaction })
+  const listRef = listsRef.doc(currentUid, props.name)
   const list = await transaction.get(listRef)
   if (list.exists) {
-    throw new https.HttpsError('already-exists', 'The list already exists.')
+    const message = `You already have a list named '${props.name}'`
+    throw new https.HttpsError('already-exists', message)
   }
   transaction.create(listRef, {
-    title: props.title,
-    uid
+    name: props.name,
+    uid: currentUid,
+    displayName: currentUser.displayName
   })
 })

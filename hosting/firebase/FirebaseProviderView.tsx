@@ -1,8 +1,8 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { firebaseApp, firebaseAuth, firebaseFunctions } from './config'
-import { FirebaseAppProvider, AuthProvider, FunctionsProvider } from 'reactfire'
+import { firebaseApp, firebaseAuth, firebaseFunctions, firestore } from './config'
+import { FirebaseAppProvider, AuthProvider, FunctionsProvider, FirestoreProvider } from 'reactfire'
 import FirebaseAppCheckProvider from './FirebaseAppCheckProvider'
 
 export function FirebaseProviderView ({
@@ -14,9 +14,11 @@ export function FirebaseProviderView ({
     <FirebaseAppProvider firebaseApp={firebaseApp}>
       <FirebaseAppCheckProvider>
         <AuthProvider sdk={firebaseAuth}>
-          <FunctionsProvider sdk={firebaseFunctions}>
-            {children}
-          </FunctionsProvider>
+          <FirestoreProvider sdk={firestore}>
+            <FunctionsProvider sdk={firebaseFunctions}>
+              {children}
+            </FunctionsProvider>
+          </FirestoreProvider>
         </AuthProvider>
       </FirebaseAppCheckProvider>
     </FirebaseAppProvider>

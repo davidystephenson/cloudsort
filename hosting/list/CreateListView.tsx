@@ -1,6 +1,9 @@
+'use client'
+
 import { useFunctions } from 'reactfire'
 import { ButtonView } from '../button/ButtonView'
 import { useHttpsCallable } from 'react-firebase-hooks/functions'
+import { CreateListProps } from '../types/shared'
 
 export function CreateListView (): JSX.Element {
   const functions = useFunctions()
@@ -8,9 +11,9 @@ export function CreateListView (): JSX.Element {
     createList,
     createListLoading,
     createListError
-  ] = useHttpsCallable(functions, 'createList')
+  ] = useHttpsCallable<CreateListProps>(functions, 'createList')
   function handleClick (): void {
-    void createList({ title: 'fake' })
+    void createList({ name: 'fake' })
   }
   return (
     <ButtonView

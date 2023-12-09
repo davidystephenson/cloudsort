@@ -1,3 +1,11 @@
+import { LoginView } from '../auth/LoginView'
+import { RegisterView } from '../auth/RegisterView'
+
 export default function Page (): JSX.Element {
-  return <h1>Hello, Next.js!</h1>
+  return (
+    <>
+      <RegisterView />
+      <LoginView />
+    </>
+  )
 }
