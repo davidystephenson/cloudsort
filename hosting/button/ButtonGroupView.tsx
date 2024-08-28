@@ -12,9 +12,7 @@ export function ButtonGroupView (props: ButtonProps): JSX.Element {
         size='sm'
         {...props}
         {...button.buttonProps}
-      >
-        {button.label}
-      </Button>
+      />
       <ErrorButtonView />
     </ButtonGroup>
   )

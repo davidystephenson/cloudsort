@@ -4,9 +4,10 @@ import { ListsMeta, RegistrationsMeta, UsersMeta } from './types/functions'
 import { getAuth } from 'firebase-admin/auth'
 
 initializeApp()
+export const adminAuth = getAuth()
+
 export const db = getFirestore() // or getFirestore(app), you can skip this line
 db.settings({ ignoreUndefinedProperties: true })
-export const adminAuth = getAuth()
 
 export const registrationsFirelord = getFirelord<RegistrationsMeta>(db, 'registrations')
 

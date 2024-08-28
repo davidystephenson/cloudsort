@@ -8,6 +8,7 @@ export default function RootLayout ({
 }): JSX.Element {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head suppressHydrationWarning />
       <body suppressHydrationWarning>
         <Providers>
           <LayoutView>

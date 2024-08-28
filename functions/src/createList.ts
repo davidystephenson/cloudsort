@@ -1,8 +1,9 @@
 import { createCloudFunction } from './createCloudFunction'
-import { CreateListProps } from './types/shared'
+import { CreateListProps, Movie } from './types/shared'
 import { listsRef } from './init'
 import { https } from 'firebase-functions/v1'
 import { guardCurrentUser } from './guardCurrentUser'
+import STATE from './service/mergeChoice/STATE'
 
 export const createList = createCloudFunction<CreateListProps>(async (props, context, transaction) => {
   if (props.name == null) {
@@ -16,8 +17,9 @@ export const createList = createCloudFunction<CreateListProps>(async (props, con
     throw new https.HttpsError('already-exists', message)
   }
   transaction.create(listRef, {
+    displayName: currentUser.displayName,
     name: props.name,
-    uid: currentUid,
-    displayName: currentUser.displayName
+    state: STATE<Movie>(),
+    uid: currentUid
   })
 })

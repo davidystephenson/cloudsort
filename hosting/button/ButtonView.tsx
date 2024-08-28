@@ -15,8 +15,11 @@ export function useButtonContext (): ButtonContextValue {
   return value
 }
 
-export function ButtonView (props: ButtonContextValue & ButtonProps): JSX.Element {
-  const propEntries = Object.entries(props)
+export function ButtonView ({
+  children,
+  ...restProps
+}: ButtonContextValue & ButtonProps): JSX.Element {
+  const propEntries = Object.entries(restProps)
   const buttonEntries = propEntries.filter(entry => {
     const [key] = entry
     const contextKey = BUTTON_CONTEXT_VALUE_KEYS.some(contextKey => contextKey === key)
@@ -24,8 +27,10 @@ export function ButtonView (props: ButtonContextValue & ButtonProps): JSX.Elemen
   })
   const buttonProps = Object.fromEntries(buttonEntries)
   return (
-    <buttonContext.Provider value={props}>
-      <ButtonGroupView {...buttonProps} />
+    <buttonContext.Provider value={restProps}>
+      <ButtonGroupView {...buttonProps}>
+        {children}
+      </ButtonGroupView>
     </buttonContext.Provider>
   )
 }

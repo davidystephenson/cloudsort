@@ -22,3 +22,13 @@ function getWhitelistedKeys<Object> (object: { [key in keyof Required<Object>]: 
     .entries(object)
     .map(([key]) => key as keyof Object)
 }
+
+export interface CritickerRow {
+  ' Date Rated': string
+  ' Film Name': string
+  ' Year': string
+  ' Mini Review': string
+  ' URL': string
+  ' IMDB ID': string
+  Score: string
+}

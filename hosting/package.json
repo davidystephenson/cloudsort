@@ -15,10 +15,14 @@
     "firebase": "^9.23.0",
     "framer-motion": "^10.16.14",
     "next": "latest",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
-    "reactfire": "^4.2.3"
+    "react-hotkeys-hook": "^4.4.1",
+    "react-icons": "^4.12.0",
+    "reactfire": "^4.2.3",
+    "yeast": "^0.1.2"
   },
   "devDependencies": {
     "@types/node": "20.8.10",

@@ -5,8 +5,10 @@ import { useAuth } from 'reactfire'
 import { AuthFormView } from './AuthFormView'
 import { UserCredential } from 'firebase/auth'
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/navigation'
 
 export function LoginView (): JSX.Element {
+  const router = useRouter()
   const auth = useAuth()
   const [
     signIn,
@@ -16,7 +18,9 @@ export function LoginView (): JSX.Element {
   ] = useSignInWithEmailAndPassword(auth)
   void user
   async function authenticate ({ email, password }: { email: string, password: string }): Promise<UserCredential> {
-    return await signIn(email, password)
+    const user = await signIn(email, password)
+    router.push('/lists')
+    return user
   }
   return (
     <>

@@ -1,3 +1,5 @@
+'use client'
+
 import { HStack, Heading } from '@chakra-ui/react'
 import { ListsView } from '../../list/ListsView'
 import { CreateListView } from '../../list/CreateListView'
